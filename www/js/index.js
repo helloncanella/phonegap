@@ -18,32 +18,49 @@
  */
 var app = {
     // Application Constructor
-    initialize: function() {
+    initialize: function () {
         this.bindEvents();
     },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
+    bindEvents: function () {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+    onDeviceReady: function () {
+        // module aliases
+        var Engine = Matter.Engine,
+            Render = Matter.Render,
+            World = Matter.World,
+            Bodies = Matter.Bodies;
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        // create an engine
+        var engine = Engine.create();
 
-        console.log('Received Event: ' + id);
+        // create a renderer
+        var render = Render.create({
+            element: document.body,
+            engine: engine
+        });
+
+        // create two boxes and a ground
+        var boxA = Bodies.rectangle(400, 200, 80, 80);
+        var boxB = Bodies.rectangle(450, 50, 80, 80);
+        var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+
+        // add all of the bodies to the world
+        World.add(engine.world, [boxA, boxB, ground]);
+
+        // run the engine
+        Engine.run(engine);
+
+        // run the renderer
+        Render.run(render);
     }
+
 };
