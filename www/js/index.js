@@ -33,17 +33,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function () {
-        // $('<canvas id="animation"></canvas>').append('body');
-
-        // var $window = $(window)
-
-        // $('canvas#animation').attr({
-        //     width: $window.innerWidth(),
-        //     height:  $window.innerHeight()
-        // })
-
-        // console.log($('canvas#animation').attr())
-        Physics.init('#animation');
+             Physics.init();
     }
 
 };
